@@ -9,7 +9,7 @@ SECRET_KEY = "django-insecure-6q6!j7d)1md19b*@85df%699r3z-^p4k7&9&!u*ud0etvxrqsg
 
 DEBUG = os.environ.get('DEBUG', "False").lower() == "true"
 
-ALLOWED_HOSTS = ["*", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [

@@ -152,7 +152,6 @@ class BrailleRecognizer:
         translated_text = self._translate_to_text(out_braille)
 
         results_dict = {
-            "image": aug_img,
             "best_idx": best_idx,
             "err_scores": list([ten.cpu().data.tolist() for ten in err_score]),
             "gt_rects": aug_gt_rects,

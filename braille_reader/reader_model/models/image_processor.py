@@ -5,7 +5,6 @@ import torch
 from ..utils.label_tools import label_vflip, label_hflip
 import albumentations
 import albumentations.augmentations.transforms as T
-import albumentations.augmentations.functional as albu_f
 
 
 class BrailleImagePreprocessor:
@@ -58,7 +57,7 @@ class BrailleImagePreprocessor:
         new_width = ((new_width + 31) // 32) * 32
         new_height = int(img.shape[0] * stretch * new_sz / img_max_sz)
         new_height = ((new_height + 31) // 32) * 32
-        return albu_f.resize(
+        return self._resize(
             img, height=new_height, width=new_width, interpolation=cv2.INTER_LINEAR
         )
 
@@ -163,3 +162,18 @@ class BrailleImagePreprocessor:
             p=1.0,
             bbox_params={"format": "albumentations", "min_visibility": 0.5},
         )
+
+    def _resize(self, img, height, width, interpolation=cv2.INTER_LINEAR):
+        num_channels = img.shape[2] if len(img.shape) == 3 else 1
+        if num_channels > 4:
+            chunks = []
+            for index in range(0, num_channels, 4):
+                chunk = img[:, :, index : index + 4]
+                chunk = cv2.resize(
+                    chunk, dsize=(width, height), interpolation=interpolation
+                )
+                chunks.append(chunk)
+            img = np.dstack(chunks)
+        else:
+            img = cv2.resize(img, dsize=(width, height), interpolation=interpolation)
+        return img

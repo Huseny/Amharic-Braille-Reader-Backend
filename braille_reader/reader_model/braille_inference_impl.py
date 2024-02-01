@@ -1,6 +1,6 @@
 from pathlib import Path
 import torch
-from .model import create_model_retinanet
+from .model.create_model_retinanet import create_model_retinanet
 from .models.orientation_attemps import OrientationAttempts
 from .model import pytorch_retinanet
 from torch import Tensor
@@ -32,6 +32,7 @@ class BraileInferenceImpl(torch.nn.Module):
             self.model, _, _ = create_model_retinanet(
                 params, device=device
             )
+            
             self.model = self.model.to(device)
             self.model.load_state_dict(
                 torch.load(self.model_weights_fn, map_location="cpu")

@@ -13,6 +13,7 @@ albumentations = "*"
 opencv-python = "*"
 djangorestframework = "*"
 gunicorn = "*"
+easymms = "*"
 
 [dev-packages]
 
