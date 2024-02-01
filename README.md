@@ -12,17 +12,15 @@ An Amharic Braille Reading AI system that converts Amharic Braille characters in
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+- [References](#references)
 
 ## About
 
-The Amharic Braille Reader is an AI system designed to recognize and convert Amharic Braille characters in images to text. It employs machine learning techniques to process Braille characters and extract meaningful information.
+Welcome to the Braille Recognition System repository! This system is designed for the detection and interpretation of Braille characters, specifically tailored for Amharic Braille. The project utilizes a Convolutional Neural Network (CNN) based on the RetinaNet architecture for Braille dot detection. The overall goal is to enhance accessibility for the visually impaired by converting Braille images into text.
 
 ## Features
 
-- **Image Capture and Preprocessing:** Capture and preprocess images containing Amharic Braille characters.
-- **Braille Character Segmentation:** Segment individual Braille characters from images for recognition.
-- **Character Recognition:** Utilize machine learning models to recognize Braille characters.
-- **Word Formation:** Reconstruct words from recognized Braille characters.
+- **Amharic Braille Detection**: The system focuses on detecting Amharic Braille characters with an emphasis on accuracy and robustness.
 
 ## Getting Started
 
@@ -38,12 +36,12 @@ Make sure you have the following installed:
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/huseny/amharic-braille-reader.git
+    git clone https://github.com/Huseny/Amharic-Braille-Reader-Backend 
     ```
 
 2. **Navigate to the project directory:**
     ```bash
-    cd amharic-braille-reader
+    cd Amharic-Braille-Reader-Backend
     ```
 
 3. **Install dependencies:**
@@ -51,23 +49,46 @@ Make sure you have the following installed:
     pip install -r requirements.txt
     ```
 
+
 ## Usage
 
 To use the Amharic Braille Reader, follow these steps:
 
-1. **Capture an Image:** Capture an image containing Amharic Braille characters.
-
-2. **Run the Recognition System:**
+1. **Run the Backend:**
     ```bash
-    python main.py --input_image path/to/braille_image.jpg
+    python manage.py runserver 0.0.0.0:8000
     ```
+2. **Clone the Frontend:**
+    ```bash
+    git clone https://github.com/Huseny/Amharic-Braille-Reader-Mobile
+    ```
+3. **Navigate to the project directory:**
+    ```bash
+    cd Amharic-Braille-Reader-Mobile
+    ```
+4. **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+6. **Change the backend address to your backend:**
+    go to braille_repository.dart and change the address to your backend address
+    ```bash
+    static const String _url = 'http://your_backend_address:8000';
+    ```
+5. **Run the Frontend:**
+    ```bash
+    flutter run
+    ```
+6. **Select an Image:**
+    Select an image from your gallery or take a picture of a Braille text.
 
-3. **Review the Output:**
+7. **Translate:**
     The system will process the image and output the recognized Amharic text.
+
 
 ## Contributing
 
-Help us improve the Amharic Braille Reader by contributing to its development. Follow the steps below to get started:
+Contributions to enhance the system or address issues are welcome. Please fork the repository, create a branch, commit your changes, and submit a pull request:
 
 1. **Fork the project.**
 2. **Create a new branch:**
@@ -90,8 +111,10 @@ This project is licensed under the GNU License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-We would like to express our gratitude to the following individuals and projects for their contributions:
+We extend our gratitude to the Ethiopian Association for the Blind and the Addis Ababa University J.F. Kennedy Library for their invaluable support in providing Braille datasets and information. Special thanks to Mr. Abebe for his assistance. We also thank the School of Information Technology and Engineering (SiTE) administration for their support and Professor Xiangdong Wang for insights into the BraUnet.
 
-- [Contributor Name] for [specific contribution]
-- [Recognition Library] for [functionality it provides]
-- [Training Dataset] for [relevant data used in training]
+
+
+## References
+
+- [Focal Loss for Dense Object Detection](https://openaccess.thecvf.com/content_ICCV_2017/papers/Lin_Focal_Loss_for_ICCV_2017_paper.pdf)
