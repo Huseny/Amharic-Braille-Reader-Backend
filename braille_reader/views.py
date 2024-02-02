@@ -1,10 +1,16 @@
+import base64
 import json
 import uuid
 from PIL import Image
 from http import HTTPStatus
 from rest_framework.decorators import api_view
-from django.http import HttpResponse, HttpRequest
+from django.http import FileResponse, HttpResponse, HttpRequest
 from braille_reader.reader_model.main import BrailleRecognizer
+from braille_reader.tts.models.tts import TTSModel
+import numpy as np
+
+
+tts = TTSModel('amh')
 
 
 @api_view(["GET"])
@@ -25,6 +31,9 @@ def transcribe_braille(request: HttpRequest):
                 find_orientation=True,
                 align_results=True,
             )
+            txt = " ".join(res["text"])
+            voice = tts.synthesize(txt, device="cpu")
+            tts.save(voice, f"audios/{id}.mp3")
             result = {
                 "id": str(id),
                 "braille": res["braille"],
@@ -42,6 +51,10 @@ def transcribe_braille(request: HttpRequest):
         print("Error: ", e)
         return HttpResponse("Error", status=HTTPStatus.BAD_REQUEST)
 
+
+@api_view(["POST"])
+def get_audio(request: HttpRequest, id: str):
+    return FileResponse(open(f"audios/{id}.mp3", "rb"))
 
 @api_view(["POST"])
 def test(request: HttpRequest):
